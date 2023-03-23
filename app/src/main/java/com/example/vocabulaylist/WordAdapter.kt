@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vocabulaylist.databinding.ItemWordBinding
 
-class WordAdapter(private val list: MutableList<Word>): RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
+class WordAdapter(
+    private val list: MutableList<Word>,
+    private val itemClickListener: ItemClickListener? = null
+    ): RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         val inflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -17,7 +20,11 @@ class WordAdapter(private val list: MutableList<Word>): RecyclerView.Adapter<Wor
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        holder.bind(list[position])
+        val word = list[position]
+        holder.bind(word)
+        holder.itemView.setOnClickListener {
+            itemClickListener?.onClick(word)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -32,5 +39,9 @@ class WordAdapter(private val list: MutableList<Word>): RecyclerView.Adapter<Wor
                 typeChip.text = word.type
             }
         }
+    }
+
+    interface ItemClickListener{
+        fun onClick(word: Word)
     }
 }
