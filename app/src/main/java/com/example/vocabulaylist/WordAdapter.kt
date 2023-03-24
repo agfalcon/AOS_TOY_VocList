@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vocabulaylist.databinding.ItemWordBinding
+import com.google.android.material.chip.Chip
 
 class WordAdapter(
     private val list: MutableList<Word>,
@@ -25,13 +26,16 @@ class WordAdapter(
         holder.itemView.setOnClickListener {
             itemClickListener?.onClick(word)
         }
+        holder.binding.typeChip.setOnClickListener {
+            itemClickListener?.onClick(holder.binding.typeChip)
+        }
     }
 
     override fun getItemCount(): Int {
         return list.size
     }
 
-    class WordViewHolder(private val binding: ItemWordBinding): RecyclerView.ViewHolder(binding.root){
+    class WordViewHolder(val binding: ItemWordBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(word: Word){
             binding.apply {
                 textTextView.text = word.text
@@ -43,5 +47,6 @@ class WordAdapter(
 
     interface ItemClickListener{
         fun onClick(word: Word)
+        fun onClick(chip: Chip)
     }
 }

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vocabulaylist.databinding.ActivityMainBinding
+import com.google.android.material.chip.Chip
 
 class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
 
@@ -30,13 +31,8 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
 
 
     private fun initRecyclerView(){
-        val dummyList = mutableListOf<Word>(
-            Word("weather", "날씨", "명사"),
-            Word("run", "달리다", "동사사"),
-            Word("honey", "꿀", "명사"),
-            Word("like", "좋아하다", "동사"),
-        )
-        wordAdapter = WordAdapter(dummyList, this)
+
+        wordAdapter = WordAdapter(mutableListOf(), this)
 
         binding.wordRecyclerView.apply{
             adapter = wordAdapter
@@ -48,5 +44,9 @@ class MainActivity : AppCompatActivity(), WordAdapter.ItemClickListener {
 
     override fun onClick(word: Word) {
         Toast.makeText(this, "${word.text}가 클릭", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onClick(chip: Chip) {
+        Toast.makeText(this, "${chip.text}가 클릭", Toast.LENGTH_SHORT).show()
     }
 }

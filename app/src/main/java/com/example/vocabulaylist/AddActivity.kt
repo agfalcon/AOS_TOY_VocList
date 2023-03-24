@@ -15,6 +15,9 @@ class AddActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initViews()
+        binding.addButton.setOnClickListener {
+            add()
+        }
     }
 
     private fun initViews() {
@@ -34,5 +37,16 @@ class AddActivity : AppCompatActivity() {
             isCheckable = true
             isClickable = true
         }
+    }
+
+    private  fun add(){
+        val text = binding.textInputEditText.text.toString()
+        val mean = binding.meanTextInputEditText.text.toString()
+        val type = findViewById<Chip>(binding.typeChipGroup.checkedChipId).text.toString()
+        val word = Word(text, mean, type)
+        Thread{
+            AppDatabase.getInstance(this)?.wordDao()?.insert(word)
+            finish()
+        }.start()
     }
 }
