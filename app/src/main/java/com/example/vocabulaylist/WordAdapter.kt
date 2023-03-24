@@ -10,7 +10,7 @@ import com.example.vocabulaylist.databinding.ItemWordBinding
 import com.google.android.material.chip.Chip
 
 class WordAdapter(
-    private val list: MutableList<Word>,
+    val list: MutableList<Word>,
     private val itemClickListener: ItemClickListener? = null
     ): RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
